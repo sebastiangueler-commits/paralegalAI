@@ -146,11 +146,11 @@ config.ini
 *.model
 *.h5
 *.joblib
+*.parquet
 
-# But keep the essential models
-!models/modelo_perfecto_final.pkl
-!models/vectorizer_perfecto_final.pkl
-!models/label_encoder_perfecto_final.pkl
-!models/modelo_perfecto_281k.pkl
-!models/vectorizer_perfecto_281k.pkl
-!models/label_encoder_perfecto_281k.pkl
+# Large data files
+data/meta.parquet
+data/sentencias.db
+
+# Models (too large for GitHub)
+models/*.pkl
