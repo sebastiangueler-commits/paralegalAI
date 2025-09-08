@@ -4,8 +4,12 @@
 import os
 import sys
 
-# Configurar la API key de Groq
-os.environ['GROQ_API_KEY'] = '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'
+# Configurar la API key de Groq desde variable de entorno
+# Configura tu API key: export GROQ_API_KEY="tu-api-key-aqui"
+if not os.getenv('GROQ_API_KEY'):
+    print("⚠️ GROQ_API_KEY no configurada. Configura la variable de entorno:")
+    print("export GROQ_API_KEY='tu-api-key-aqui'")
+    print("O edita este archivo para agregar tu API key")
 
 print("🚀 Iniciando GOYO IA...")
 print("✅ API Key de Groq configurada")

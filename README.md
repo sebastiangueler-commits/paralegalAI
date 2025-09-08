@@ -58,11 +58,15 @@ pip install -r requirements.txt
 
 ### 3. Configurar API Key de Groq
 ```bash
-# Opción 1: Variable de entorno
+# Opción 1: Variable de entorno (recomendado)
 export GROQ_API_KEY="tu-api-key-aqui"
 
-# Opción 2: Editar ejecutar_servidor.py
-# Cambiar la línea 8 con tu API key
+# Opción 2: Archivo de configuración
+cp config.env.example config.env
+# Editar config.env con tu API key
+
+# Opción 3: Editar ejecutar_servidor.py
+# Agregar tu API key en la línea correspondiente
 ```
 
 ### 4. Ejecutar la aplicación
