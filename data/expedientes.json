@@ -1,0 +1,38 @@
+[
+  {
+    "id": "EXP-001",
+    "numero": "001/2024",
+    "tribunal": "Juzgado Civil y Comercial N° 1",
+    "materia": "Daños y Perjuicios",
+    "fecha_inicio": "2024-01-15",
+    "estado": "En Trámite",
+    "parte_actora": "Juan Pérez",
+    "parte_demandada": "Empresa ABC S.A.",
+    "monto_reclamado": 50000,
+    "descripcion": "Demanda por daños y perjuicios por incumplimiento contractual"
+  },
+  {
+    "id": "EXP-002",
+    "numero": "002/2024",
+    "tribunal": "Juzgado Laboral N° 3",
+    "materia": "Derecho Laboral",
+    "fecha_inicio": "2024-02-20",
+    "estado": "En Trámite",
+    "parte_actora": "María González",
+    "parte_demandada": "Compañía XYZ Ltda.",
+    "monto_reclamado": 25000,
+    "descripcion": "Demanda por despido sin causa justificada"
+  },
+  {
+    "id": "EXP-003",
+    "numero": "003/2024",
+    "tribunal": "Juzgado de Familia N° 2",
+    "materia": "Derecho de Familia",
+    "fecha_inicio": "2024-03-10",
+    "estado": "En Trámite",
+    "parte_actora": "Carlos Rodríguez",
+    "parte_demandada": "Ana Martínez",
+    "monto_reclamado": 0,
+    "descripcion": "Divorcio vincular por presentación conjunta"
+  }
+]

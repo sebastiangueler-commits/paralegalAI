@@ -1,0 +1,26 @@
+[
+  {
+    "id": "USR-001",
+    "email": "admin@legalai.com",
+    "nombre": "Administrador",
+    "apellido": "Sistema",
+    "rol": "admin",
+    "activo": true
+  },
+  {
+    "id": "USR-002",
+    "email": "abogado@legalai.com",
+    "nombre": "Dr. Juan",
+    "apellido": "Pérez",
+    "rol": "abogado",
+    "activo": true
+  },
+  {
+    "id": "USR-003",
+    "email": "cliente@legalai.com",
+    "nombre": "María",
+    "apellido": "González",
+    "rol": "cliente",
+    "activo": true
+  }
+]

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOYO IA - Sistema Legal Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --dark-blue: #1e40af;
+            --accent-blue: #60a5fa;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--white);
+        }
+
+        /* Header Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-blue) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--gray-600) !important;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue) !important;
+        }
+
+        .btn-login {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-blue) 100%);
+            padding: 8rem 0 6rem;
+            margin-top: 80px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .btn-primary-custom {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary-custom:hover {
+            background: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(30, 58, 138, 0.4);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+        }
+
+        .feature-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .feature-link:hover {
+            color: var(--dark-blue);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--primary-blue);
+            padding: 4rem 0;
+            color: var(--white);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gray-50);
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: var(--gray-200);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(30, 58, 138, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(30, 58, 138, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(30, 58, 138, 0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .scale-in {
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* Gradient Animation */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #60a5fa, #dbeafe);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Hover Effects */
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary-custom:hover {
+            animation: pulse 0.6s;
+        }
+
+        /* Loading States */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-balance-scale me-2"></i>GOYO IA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Funcionalidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Acerca de</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+                </ul>
+                <button class="btn btn-login" onclick="showLogin()">
+                    <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section gradient-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title slide-in-left">
+                        Sistema Legal Inteligente
+                    </h1>
+                    <p class="hero-subtitle slide-in-left">
+                        Revoluciona tu práctica legal con inteligencia artificial avanzada. 
+                        Predicción de sentencias, búsqueda de jurisprudencia y automatización 
+                        de documentos legales.
+                    </p>
+                    <div class="slide-in-left">
+                        <button class="btn btn-primary-custom pulse" onclick="showLogin()">
+                            <i class="fas fa-rocket me-2"></i>Comenzar Ahora
+                        </button>
+                        <button class="btn btn-outline-custom" onclick="scrollToFeatures()">
+                            <i class="fas fa-play me-2"></i>Ver Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center slide-in-right">
+                        <div class="feature-icon mx-auto mb-4 float">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="text-primary mb-3 scale-in">Inteligencia Artificial Avanzada</h3>
+                        <p class="text-muted scale-in">Powered by Groq AI</p>
+                        <div class="mt-4">
+                            <div class="status-indicator online mx-auto">
+                                <div class="status-dot online"></div>
+                                Sistema Activo 24/7
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">281K</div>
+                        <div class="stat-label">Sentencias Analizadas</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Precisión en Predicciones</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Funcionalidades Principales</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Disponibilidad</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Funcionalidades Principales</h2>
+            <p class="section-subtitle">
+                Herramientas avanzadas diseñadas específicamente para profesionales del derecho
+            </p>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">Predicción de Sentencias</h3>
+                        <p class="feature-description">
+                            Analiza demandas PDF y predice el resultado probable usando modelo ML 
+                            entrenado con miles de casos judiciales.
+                        </p>
+                        <a href="/prediccion-sentencia" class="feature-link">
+                            Probar Ahora <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="feature-title">Búsqueda de Jurisprudencia</h3>
+                        <p class="feature-description">
+                            Encuentra casos similares en 281K sentencias usando vectorización 
+                            y búsqueda semántica avanzada.
+                        </p>
+                        <a href="/buscar-jurisprudencia" class="feature-link">
+                            Probar Ahora <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Creación de Escritos</h3>
+                        <p class="feature-description">
+                            Genera documentos legales profesionales usando plantillas PDF 
+                            y IA para personalización automática.
+                        </p>
+                        <a href="/crear-escritos" class="feature-link">
+                            Probar Ahora <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3 class="feature-title">Traducción Legal</h3>
+                        <p class="feature-description">
+                            Traduce documentos legales manteniendo el lenguaje jurídico 
+                            formal y técnico apropiado.
+                        </p>
+                        <a href="/traducir" class="feature-link">
+                            Probar Ahora <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3 class="feature-title">Generación de Laudos</h3>
+                        <p class="feature-description">
+                            Genera laudos arbitrales profesionales para diferentes 
+                            tipos de disputas legales.
+                        </p>
+                        <a href="/generar-laudos" class="feature-link">
+                            Probar Ahora <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">¿Listo para Transformar tu Práctica Legal?</h2>
+            <p class="cta-subtitle">
+                Únete a los profesionales del derecho que ya están utilizando 
+                GOYO IA para optimizar su trabajo y mejorar sus resultados.
+            </p>
+            <button class="btn btn-primary-custom" onclick="showLogin()">
+                <i class="fas fa-user-plus me-2"></i>Crear Cuenta Gratuita
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4 class="footer-title">
+                        <i class="fas fa-balance-scale me-2"></i>GOYO IA
+                    </h4>
+                    <p class="text-muted">
+                        Sistema Legal Inteligente diseñado para revolucionar 
+                        la práctica del derecho con tecnología de vanguardia.
+                    </p>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="footer-title">Producto</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#features" class="footer-link">Funcionalidades</a></li>
+                        <li><a href="#" class="footer-link">Precios</a></li>
+                        <li><a href="#" class="footer-link">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="footer-title">Soporte</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Ayuda</a></li>
+                        <li><a href="#" class="footer-link">Documentación</a></li>
+                        <li><a href="#" class="footer-link">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="footer-title">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Términos</a></li>
+                        <li><a href="#" class="footer-link">Privacidad</a></li>
+                        <li><a href="#" class="footer-link">Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="footer-title">Síguenos</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="footer-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-link"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; 2024 GOYO IA. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">Powered by Groq AI</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <i class="fas fa-sign-in-alt me-2 text-primary"></i>Iniciar Sesión
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Recordarme</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                        </button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p class="text-muted">¿No tienes cuenta? 
+                            <a href="#" class="text-primary" onclick="showRegister()">Regístrate aquí</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showLogin() {
+            const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+            modal.show();
+        }
+
+        function showRegister() {
+            // Aquí puedes implementar el registro
+            alert('Funcionalidad de registro próximamente disponible');
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simulación de login - aquí conectarías con tu backend
+            if (email && password) {
+                // Redirigir al dashboard
+                window.location.href = '/dashboard';
+            } else {
+                alert('Por favor completa todos los campos');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    
+                    // Add staggered animation for feature cards
+                    if (entry.target.classList.contains('feature-card')) {
+                        const cards = document.querySelectorAll('.feature-card');
+                        const index = Array.from(cards).indexOf(entry.target);
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate
+        document.querySelectorAll('.feature-card, .stat-item, .chart-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (counter.textContent.includes('K')) {
+                        counter.textContent = Math.floor(current) + 'K';
+                    } else if (counter.textContent.includes('%')) {
+                        counter.textContent = Math.floor(current) + '%';
+                    } else if (counter.textContent.includes('/')) {
+                        counter.textContent = Math.floor(current) + '/7';
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Enhanced button interactions
+        document.querySelectorAll('.btn-primary-custom, .btn-outline-custom').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth scrolling enhancement
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Loading animation for page
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+            
+            // Trigger initial animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-up').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 300);
+        });
+    </script>
+</body>
+</html>

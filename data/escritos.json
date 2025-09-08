@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ESC-001",
+    "expediente_id": "EXP-001",
+    "tipo": "Demanda",
+    "fecha": "2024-01-15",
+    "contenido": "A la Señora Jueza: Por medio del presente escrito, solicito se inicie el presente expediente por daños y perjuicios...",
+    "estado": "Presentado"
+  },
+  {
+    "id": "ESC-002",
+    "expediente_id": "EXP-002",
+    "tipo": "Demanda",
+    "fecha": "2024-02-20",
+    "contenido": "A la Señora Jueza: Por medio del presente escrito, solicito se inicie el presente expediente por despido sin causa...",
+    "estado": "Presentado"
+  },
+  {
+    "id": "ESC-003",
+    "expediente_id": "EXP-003",
+    "tipo": "Solicitud",
+    "fecha": "2024-03-10",
+    "contenido": "A la Señora Jueza: Por medio del presente escrito, solicitamos se inicie el presente expediente de divorcio...",
+    "estado": "Presentado"
+  }
+]

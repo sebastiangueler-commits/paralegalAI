@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - GOYO IA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --dark-blue: #1e40af;
+            --accent-blue: #60a5fa;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-blue) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            display: flex;
+        }
+
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .login-right {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .feature-list i {
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+
+        .btn-login {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn-login:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        .divider span {
+            background: var(--white);
+            padding: 0 1rem;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .btn-demo {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-demo:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #fecaca;
+            display: none;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #bbf7d0;
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 50%;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                margin: 1rem;
+                min-height: auto;
+            }
+
+            .login-left {
+                padding: 2rem;
+            }
+
+            .login-right {
+                padding: 2rem;
+            }
+
+            .back-link {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">
+        <i class="fas fa-arrow-left me-2"></i>Volver al inicio
+    </a>
+
+    <div class="login-container">
+        <div class="login-left">
+            <div class="logo">
+                <i class="fas fa-balance-scale me-2"></i>GOYO IA
+            </div>
+            <h2 class="login-title">Sistema Legal Inteligente</h2>
+            <p class="login-subtitle">
+                Accede a herramientas avanzadas de IA para profesionales del derecho
+            </p>
+            <ul class="feature-list">
+                <li>
+                    <i class="fas fa-brain"></i>
+                    Predicción de sentencias con ML
+                </li>
+                <li>
+                    <i class="fas fa-search"></i>
+                    Búsqueda en 281K sentencias
+                </li>
+                <li>
+                    <i class="fas fa-file-alt"></i>
+                    Generación automática de documentos
+                </li>
+                <li>
+                    <i class="fas fa-language"></i>
+                    Traducción legal especializada
+                </li>
+                <li>
+                    <i class="fas fa-gavel"></i>
+                    Generación de laudos arbitrales
+                </li>
+            </ul>
+        </div>
+
+        <div class="login-right">
+            <h3 class="mb-4">Iniciar Sesión</h3>
+            
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" required 
+                           placeholder="tu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" required 
+                           placeholder="Tu contraseña">
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="remember">
+                    <label class="form-check-label" for="remember">
+                        Recordarme
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-login" id="loginBtn">
+                    <span id="loginText">Iniciar Sesión</span>
+                    <span id="loginSpinner" class="loading" style="display: none;"></span>
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>o</span>
+            </div>
+
+            <button class="btn btn-demo" onclick="demoLogin()">
+                <i class="fas fa-play me-2"></i>Acceso Demo
+            </button>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    ¿No tienes cuenta? 
+                    <a href="#" class="text-primary" onclick="showRegister()">Regístrate aquí</a>
+                </p>
+                <p class="text-muted">
+                    <a href="#" class="text-primary">¿Olvidaste tu contraseña?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const loginText = document.getElementById('loginText');
+            const loginSpinner = document.getElementById('loginSpinner');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Hide previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Show loading state
+            loginBtn.disabled = true;
+            loginText.style.display = 'none';
+            loginSpinner.style.display = 'inline-block';
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // For demo purposes, accept any email/password
+                if (email && password) {
+                    successMessage.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+                    successMessage.style.display = 'block';
+                    
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1000);
+                } else {
+                    throw new Error('Por favor completa todos los campos');
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+            } finally {
+                // Reset button state
+                loginBtn.disabled = false;
+                loginText.style.display = 'inline';
+                loginSpinner.style.display = 'none';
+            }
+        });
+
+        // Demo login
+        function demoLogin() {
+            document.getElementById('email').value = 'demo@goyoia.com';
+            document.getElementById('password').value = 'demo123';
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+        }
+
+        // Show register (placeholder)
+        function showRegister() {
+            alert('Funcionalidad de registro próximamente disponible');
+        }
+
+        // Auto-focus email field
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('email').focus();
+        });
+
+        // Handle Enter key
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const form = document.getElementById('loginForm');
+                if (form.checkValidity()) {
+                    form.dispatchEvent(new Event('submit'));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Goyo IA - Sistema Legal Inteligente{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}">
+                <i class="fas fa-balance-scale me-2"></i>
+                Goyo IA
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-brain me-1"></i>Análisis IA
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('analisis_predictivo') }}">
+                                <i class="fas fa-chart-line me-2"></i>Análisis Predictivo
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('prediccion_sentencia') }}">
+                                <i class="fas fa-gavel me-2"></i>Predicción de Sentencia
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('subir_pdf') }}">
+                                <i class="fas fa-file-pdf me-2"></i>Análisis de PDF
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('buscar_jurisprudencia') }}">
+                                <i class="fas fa-search me-2"></i>Búsqueda Jurisprudencia
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-gavel me-1"></i>Documentos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('traducir_legal') }}">
+                                <i class="fas fa-language me-2"></i>Traducción Legal
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('generar_laudo') }}">
+                                <i class="fas fa-file-contract me-2"></i>Generar Laudo
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-file-contract me-1"></i>Plantillas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('crear_modelo') }}">
+                                <i class="fas fa-plus-circle me-2"></i>Crear Plantilla
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('entrenar_modelo') }}">
+                                <i class="fas fa-list me-2"></i>Gestionar Plantillas
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('api_info') }}">
+                            <i class="fas fa-info-circle me-1"></i>API Info
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-balance-scale me-2"></i>Goyo IA</h5>
+                    <p class="mb-0">Sistema Legal Inteligente con IA</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <i class="fas fa-code me-1"></i>
+                        Powered by Machine Learning & AI
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

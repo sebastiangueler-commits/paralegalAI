@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Escritos - GOYO IA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .create-card {
+            border-left: 4px solid #28a745;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .result-card {
+            border-left: 3px solid #007bff;
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-gavel me-2"></i>GOYO IA
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Inicio</a>
+                <a class="nav-link" href="/prediccion-sentencia">Predicción</a>
+                <a class="nav-link" href="/buscar-jurisprudencia">Jurisprudencia</a>
+                <a class="nav-link active" href="/crear-escritos">Escritos</a>
+                <a class="nav-link" href="/traducir">Traducción</a>
+                <a class="nav-link" href="/generar-laudos">Laudos</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card shadow create-card">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0">
+                            <i class="fas fa-file-alt me-2"></i>Crear Escritos Legales con IA
+                        </h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="createForm">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Tipo de Documento</label>
+                                    <select class="form-select" id="tipo_documento" required>
+                                        <option value="">Selecciona un tipo</option>
+                                        <option value="demanda_civil">Demanda Civil</option>
+                                        <option value="demanda_comercial">Demanda Comercial</option>
+                                        <option value="contestacion">Contestación de Demanda</option>
+                                        <option value="contestacion_demanda">Contestación de Demanda</option>
+                                        <option value="alegato_final">Alegato Final</option>
+                                        <option value="recurso">Recurso</option>
+                                        <option value="intimacion">Intimación</option>
+                                        <option value="audiencias">Solicitud de Audiencias</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Materia del Caso</label>
+                                    <input type="text" class="form-control" id="materia" 
+                                        placeholder="Ej: accidente de tránsito, incumplimiento contractual..."
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Detalles Específicos</label>
+                                <textarea class="form-control" id="detalles" rows="4" 
+                                    placeholder="Describe los hechos específicos del caso, las partes involucradas, fechas importantes, etc..."
+                                    required></textarea>
+                                <div class="form-text">
+                                    Proporciona información detallada para generar un documento más preciso y personalizado.
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="fas fa-magic me-2"></i>Generar Documento Legal
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Results -->
+                        <div id="results" class="mt-4" style="display: none;">
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-file-alt me-2"></i>Documento Generado
+                                </h5>
+                                <span class="badge bg-success" id="documentType"></span>
+                            </div>
+                            <div class="card result-card">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <h6 class="text-primary">Plantilla Utilizada:</h6>
+                                        <small class="text-muted" id="plantillaUsada"></small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h6 class="text-primary">Materia:</h6>
+                                        <span id="materiaResult"></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-primary">Contenido del Documento:</h6>
+                                        <div class="border p-3 bg-light" style="max-height: 400px; overflow-y: auto;">
+                                            <pre id="documentContent" style="white-space: pre-wrap; font-family: 'Times New Roman', serif;"></pre>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 text-end">
+                                        <button class="btn btn-outline-primary" onclick="copyToClipboard()">
+                                            <i class="fas fa-copy me-2"></i>Copiar Texto
+                                        </button>
+                                        <button class="btn btn-outline-success" onclick="downloadDocument()">
+                                            <i class="fas fa-download me-2"></i>Descargar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Error -->
+                        <div id="error" class="mt-4" style="display: none;">
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <span id="errorMessage"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const form = document.getElementById('createForm');
+        const results = document.getElementById('results');
+        const error = document.getElementById('error');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const tipo_documento = document.getElementById('tipo_documento').value;
+            const materia = document.getElementById('materia').value.trim();
+            const detalles = document.getElementById('detalles').value.trim();
+
+            if (!tipo_documento || !materia || !detalles) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            try {
+                // Show loading
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Generando...';
+                submitBtn.disabled = true;
+
+                // Hide previous results
+                results.style.display = 'none';
+                error.style.display = 'none';
+
+                // Send request
+                const response = await fetch('/api/v1/ai/crear-modelo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        tipo_documento: tipo_documento,
+                        materia: materia,
+                        detalles: detalles
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Show results
+                    document.getElementById('documentType').textContent = data.tipo_documento;
+                    document.getElementById('plantillaUsada').textContent = data.plantilla_usada;
+                    document.getElementById('materiaResult').textContent = data.materia;
+                    document.getElementById('documentContent').textContent = data.texto_generado;
+                    
+                    results.style.display = 'block';
+                } else {
+                    // Show error
+                    document.getElementById('errorMessage').textContent = data.error;
+                    error.style.display = 'block';
+                }
+
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = 'Error de conexión: ' + error.message;
+                error.style.display = 'block';
+            } finally {
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        function copyToClipboard() {
+            const content = document.getElementById('documentContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Texto copiado al portapapeles');
+            });
+        }
+
+        function downloadDocument() {
+            const content = document.getElementById('documentContent').textContent;
+            const tipo = document.getElementById('documentType').textContent;
+            const materia = document.getElementById('materiaResult').textContent;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${tipo}_${materia.replace(/\s+/g, '_')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

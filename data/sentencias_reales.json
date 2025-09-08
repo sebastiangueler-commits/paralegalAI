@@ -1,0 +1,29 @@
+[
+  {
+    "tribunal": "Juzgado Civil y Comercial N° 1",
+    "fecha": "2024-01-15",
+    "materia": "Daños y Perjuicios",
+    "partes": "García, Juan vs. Rodríguez, María",
+    "expediente": "GARC-001-2024",
+    "full_text": "VISTOS: Los autos caratulados 'GARCÍA, Juan c/ RODRÍGUEZ, María s/ Daños y Perjuicios', en los que se solicita la condena de la demandada al pago de la suma de $500.000 por daños y perjuicios ocasionados en un accidente de tránsito ocurrido el día 15 de marzo de 2023. CONSIDERANDO: Que de la prueba producida surge que la demandada fue responsable del accidente de tránsito que ocasionó lesiones al actor. Que el monto reclamado resulta razonable y proporcionado a los daños sufridos. Por ello, SE RESUELVE: Condenar a la demandada RODRÍGUEZ, María al pago de la suma de $500.000 por daños y perjuicios, más intereses y costas.",
+    "url": null
+  },
+  {
+    "tribunal": "Juzgado de Familia N° 2",
+    "fecha": "2024-01-20",
+    "materia": "Divorcio Vincular",
+    "partes": "López, Ana vs. Martínez, Carlos",
+    "expediente": "LOPZ-002-2024",
+    "full_text": "VISTOS: Los autos caratulados 'LÓPEZ, Ana c/ MARTÍNEZ, Carlos s/ Divorcio Vincular', en los que se solicita la declaración de divorcio vincular por las causales establecidas en el artículo 202 del Código Civil y Comercial. CONSIDERANDO: Que de la prueba producida surge que existe una separación de hecho de más de tres años entre los cónyuges. Que no hay oposición de la parte demandada. Que se han cumplido todos los requisitos legales. Por ello, SE RESUELVE: Declarar el divorcio vincular entre LÓPEZ, Ana y MARTÍNEZ, Carlos, disolviendo el vínculo matrimonial. Costas por su orden.",
+    "url": null
+  },
+  {
+    "tribunal": "Juzgado Laboral N° 3",
+    "fecha": "2024-01-25",
+    "materia": "Despido",
+    "partes": "Fernández, Pedro vs. Empresa S.A.",
+    "expediente": "FERN-003-2024",
+    "full_text": "VISTOS: Los autos caratulados 'FERNÁNDEZ, Pedro c/ EMPRESA S.A. s/ Despido', en los que se solicita la declaración de nulidad del despido y la reinstalación del actor en su puesto de trabajo. CONSIDERANDO: Que de la prueba producida surge que el despido fue dispuesto sin causa justificada y sin previo aviso. Que el actor prestaba servicios desde hace más de 5 años. Que no se han cumplido las formalidades legales. Por ello, SE RESUELVE: Declarar la nulidad del despido dispuesto por la demandada. Condenar a la demandada a reinstalar al actor en su puesto de trabajo. Costas por su orden.",
+    "url": null
+  }
+]

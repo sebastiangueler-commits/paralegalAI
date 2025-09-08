@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda de Jurisprudencia - GOYO IA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .search-card {
+            border-left: 4px solid #28a745;
+        }
+        .result-item {
+            border-left: 3px solid #007bff;
+            transition: all 0.3s ease;
+        }
+        .result-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .similarity-badge {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-gavel me-2"></i>GOYO IA
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Inicio</a>
+                <a class="nav-link" href="/prediccion-sentencia">Predicción</a>
+                <a class="nav-link active" href="/buscar-jurisprudencia">Jurisprudencia</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0">
+                            <i class="fas fa-search me-2"></i>Búsqueda de Jurisprudencia
+                        </h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="searchForm">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Consulta de Búsqueda</label>
+                                <textarea class="form-control" id="consulta" rows="3" 
+                                    placeholder="Describe tu caso legal o escribe palabras clave relacionadas con la jurisprudencia que buscas..."
+                                    required></textarea>
+                                <div class="form-text">
+                                    Ejemplo: "demanda por incumplimiento contractual", "daños y perjuicios", "despido injustificado"
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">Número de Resultados</label>
+                                    <select class="form-select" id="limite">
+                                        <option value="3">3 resultados</option>
+                                        <option value="5" selected>5 resultados</option>
+                                        <option value="10">10 resultados</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                                        <i class="fas fa-search me-2"></i>Buscar Jurisprudencia
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Results -->
+                        <div id="results" class="mt-4" style="display: none;">
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-gavel me-2"></i>Resultados Encontrados
+                                </h5>
+                                <span class="badge bg-primary" id="totalResults"></span>
+                            </div>
+                            <div id="resultsList"></div>
+                        </div>
+
+                        <!-- No Results -->
+                        <div id="noResults" class="mt-4 text-center" style="display: none;">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                                    <h5>No se encontraron resultados</h5>
+                                    <p class="text-muted">Intenta con términos diferentes o más específicos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const form = document.getElementById('searchForm');
+        const results = document.getElementById('results');
+        const noResults = document.getElementById('noResults');
+        const resultsList = document.getElementById('resultsList');
+        const totalResults = document.getElementById('totalResults');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const consulta = document.getElementById('consulta').value.trim();
+            const limite = document.getElementById('limite').value;
+
+            if (!consulta) {
+                alert('Por favor escribe una consulta');
+                return;
+            }
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            try {
+                // Show loading
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Buscando...';
+                submitBtn.disabled = true;
+
+                // Send request
+                const response = await fetch('/api/v1/ai/buscar-jurisprudencia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        consulta: consulta,
+                        limite: parseInt(limite)
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.resultados && data.resultados.length > 0) {
+                        // Show results
+                        displayResults(data.resultados);
+                        totalResults.textContent = `${data.total_encontrados} resultados`;
+                        results.style.display = 'block';
+                        noResults.style.display = 'none';
+                    } else {
+                        // Show no results
+                        results.style.display = 'none';
+                        noResults.style.display = 'block';
+                    }
+                } else {
+                    alert('Error: ' + data.error);
+                }
+
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        function displayResults(resultados) {
+            resultsList.innerHTML = '';
+            
+            resultados.forEach((resultado, index) => {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'card result-item mb-3';
+                
+                resultCard.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="card-title text-primary mb-0">
+                                <i class="fas fa-file-alt me-2"></i>Sentencia ${index + 1}
+                            </h6>
+                            <span class="badge similarity-badge text-white">
+                                ${resultado.similitud}% similar
+                            </span>
+                        </div>
+                        <p class="card-text text-muted mb-2">
+                            <strong>Tipo:</strong> ${resultado.sentencia || 'No especificado'}
+                        </p>
+                        <p class="card-text">
+                            ${resultado.texto}
+                        </p>
+                        <div class="text-end">
+                            <small class="text-muted">
+                                <i class="fas fa-percentage me-1"></i>
+                                Similitud: ${resultado.similitud}%
+                            </small>
+                        </div>
+                    </div>
+                `;
+                
+                resultsList.appendChild(resultCard);
+            });
+        }
+    </script>
+</body>
+</html>

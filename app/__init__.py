@@ -1,1 +1,0 @@
-# Legal AI Application Package
