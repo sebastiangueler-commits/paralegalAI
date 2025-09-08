@@ -1,34 +1,35 @@
 # 🤖 Modelos ML - GOYO IA
 
-## ⚠️ Importante
+## ✅ Modelos Incluidos
 
-Los modelos de Machine Learning son archivos muy grandes (>100MB) y no pueden subirse a GitHub debido a las limitaciones de tamaño.
+Los modelos de Machine Learning están incluidos en el repositorio usando **Git LFS** (Large File Storage) para manejar archivos grandes.
 
-## 📥 Cómo obtener los modelos
+## 📦 Modelos Disponibles
 
-### Opción 1: Entrenar tus propios modelos
-```bash
-# Ejecutar script de entrenamiento (si está disponible)
-python entrenar_modelo.py
-```
-
-### Opción 2: Descargar modelos pre-entrenados
-Los modelos necesarios para el funcionamiento completo son:
+Los modelos incluidos son:
 
 ```
 models/
 ├── modelo_perfecto_281k.pkl      # Modelo principal (281K sentencias)
 ├── vectorizer_perfecto_281k.pkl   # Vectorizador de texto
-└── label_encoder_perfecto_281k.pkl # Codificador de etiquetas
+├── label_encoder_perfecto_281k.pkl # Codificador de etiquetas
+└── n_neighbors_perfecto_281k.pkl  # Parámetros del modelo
 ```
 
-### Opción 3: Usar modelos alternativos
-Si no tienes acceso a los modelos grandes, la aplicación funcionará con funcionalidades limitadas:
+## 🚀 Instalación con Git LFS
 
-- ✅ **Groq IA** - Generación de texto y sentencias
-- ✅ **Búsqueda básica** - En datos de texto plano
-- ❌ **Predicción ML** - Requiere modelos entrenados
-- ❌ **Búsqueda semántica** - Requiere vectorizador
+### Para desarrolladores:
+```bash
+# Clonar con LFS
+git lfs install
+git clone https://github.com/sebastiangueler-commits/paralegalAI.git
+cd paralegalAI
+
+# Los modelos se descargan automáticamente
+```
+
+### Para usuarios:
+Los modelos se descargan automáticamente al clonar el repositorio.
 
 ## 🔧 Configuración
 

@@ -142,7 +142,6 @@ credentials/google-credentials.json
 config.ini
 
 # Large files that shouldn't be in git
-*.pkl
 *.model
 *.h5
 *.joblib
@@ -152,5 +151,5 @@ config.ini
 data/meta.parquet
 data/sentencias.db
 
-# Models (too large for GitHub)
-models/*.pkl
+# Models are handled by Git LFS
+# *.pkl files are tracked by LFS
