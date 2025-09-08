@@ -1,0 +1,22 @@
+# Archivos a ignorar en Vercel
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
+.git/
+.gitignore
+README.md
+MODELOS.md
+config.env.example
+ejecutar_servidor.py
+goyo_ia.py
+test_*.py
+*.log
+uploads/
+outputs/
+escritos_generados/
